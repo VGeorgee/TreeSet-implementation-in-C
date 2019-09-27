@@ -68,8 +68,6 @@ int treeset_add(TreeSet *this_set, const void *element){
  * */
 }
 
-
-
 int treeset_contains(TreeSet *this_set, const void *element){
 
     NODE *pointer = this_set->root;
@@ -88,17 +86,13 @@ int treeset_contains(TreeSet *this_set, const void *element){
     return 0;
 }
 
-
-
 int treeset_size(TreeSet *this_set){
     return this_set->number_of_nodes;
 }
 
-
 int treeset_isempty(TreeSet *this_set){
     return this_set->number_of_nodes == 0;
 }
-
 
 void treeset_clear(TreeSet *this_set){
     NODE **stack_of_nodes = malloc(sizeof(NODE *) * this_set->number_of_nodes);
@@ -117,7 +111,7 @@ void treeset_clear(TreeSet *this_set){
     }
 
     for(i = n-1; i >= 0; i--){
-        free(stack_of_nodes[i]->value);
+        //free(stack_of_nodes[i]->value); might cause error
         stack_of_nodes[i]->value = NULL;
         stack_of_nodes[i]->left_child = NULL;
         stack_of_nodes[i]->right_child = NULL;
