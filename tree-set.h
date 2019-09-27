@@ -1,5 +1,3 @@
-
-
 #ifndef STDIO
       #define STDIO
       #include <stdio.h>
@@ -28,7 +26,7 @@ typedef struct treeset{
 } TreeSet;
 
 TreeSet *new_treeset(int (* equals)(const void *a, const void *b), int (* compare)(const void *a, const void *b));
-
+NODE *new_node(const void *element);
 
 int treeset_add(TreeSet *this_set, const void *element);
 int treeset_contains(TreeSet *this_set, const void *element);
