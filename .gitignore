@@ -1,0 +1,4 @@
+*.cbp
+*.vs
+bin
+obj
