@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "include/TreeSet.h"
+#include "TreeSet.h"
 
 int main()
 {

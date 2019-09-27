@@ -1,20 +1,34 @@
+
+
+#ifndef STDIO
+      #define STDIO
+      #include <stdio.h>
+#endif
+#ifndef STDLIB
+      #define STDLIB
+      #include <stdlib.h>
+#endif
+
 typedef struct node{
 
     void *value;
-    node *left_child;
-    node *right_child;
+    struct node *left_child;
+    struct node *right_child;
 
 } NODE;
 
 typedef struct treeset{
 
-    node *root;
+    NODE *root;
     int number_of_nodes;
 
     int (* equals)(const void *a, const void *b);
     int (* compare)(const void *a, const void *b);
 
 } TreeSet;
+
+TreeSet *new_treeset(int (* equals)(const void *a, const void *b), int (* compare)(const void *a, const void *b));
+
 
 int treeset_add(TreeSet *this_set, const void *element);
 int treeset_contains(TreeSet *this_set, const void *element);
