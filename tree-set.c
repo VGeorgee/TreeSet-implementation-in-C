@@ -98,3 +98,29 @@ int treeset_size(TreeSet *this_set){
 int treeset_isempty(TreeSet *this_set){
     return this_set->number_of_nodes == 0;
 }
+
+
+void treeset_clear(TreeSet *this_set){
+    NODE **stack_of_nodes = malloc(sizeof(NODE *) * this_set->number_of_nodes);
+    int i, n;
+
+    stack_of_nodes[0] = this_set->root;
+    n = 1;
+
+    for(i = 0; i < n; i++){
+        if(stack_of_nodes[i]->left_child != NULL){
+            stack_of_nodes[n++] = stack_of_nodes[i]->left_child;
+        }
+        if(stack_of_nodes[i]->right_child != NULL){
+            stack_of_nodes[n++] = stack_of_nodes[i]->right_child;
+        }
+    }
+
+    for(i = n-1; i >= 0; i--){
+        free(stack_of_nodes[i]->value);
+        stack_of_nodes[i]->value = NULL;
+        stack_of_nodes[i]->left_child = NULL;
+        stack_of_nodes[i]->right_child = NULL;
+        free(stack_of_nodes[i]);
+    }
+}
