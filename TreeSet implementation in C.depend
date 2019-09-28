@@ -1,6 +1,0 @@
-# depslib dependency file v1.0
-1569620526 source:d:\git\c\treeset implementation in c\main.c
-	<stdio.h>
-	<stdlib.h>
-	"TreeSet.h"
-
