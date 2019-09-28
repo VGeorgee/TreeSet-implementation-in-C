@@ -152,6 +152,56 @@ void *treeset_last(TreeSet *this_set){
     while(pointer->right_child == NULL){
         pointer = pointer->right_child;
     }
-    
+
     return pointer->value;
+}
+
+void *treeset_poll_first(TreeSet *this_set){
+
+    if(this_set->root == NULL){
+        return NULL;
+    }
+
+    NODE *pointer, *previous_pointer;
+    void *data_from_first = NULL;
+    pointer = previous_pointer = this_set->root;
+
+
+    while(pointer->left_child != NULL){
+        previous_pointer = pointer;
+        pointer = pointer->left_child;
+    }
+
+    if(previous_pointer != pointer){
+        previous_pointer->left_child = pointer->right_child;
+    }
+
+    data_from_first = pointer->value;
+    free(pointer);
+
+    return data_from_first;
+}
+void *treeset_poll_last(TreeSet *this_set){
+    
+    if(this_set->root == NULL){
+        return NULL;
+    }
+
+    NODE *pointer, *previous_pointer;
+    void *data_from_first = NULL;
+    pointer = previous_pointer = this_set->root;
+
+    while(pointer->right_child != NULL){
+        previous_pointer = pointer;
+        pointer = pointer->right_child;
+    }
+
+    if(previous_pointer != pointer){
+        previous_pointer->right_child = pointer->left_child;
+    }
+
+    data_from_first = pointer->value;
+    free(pointer);
+
+    return data_from_first;
 }

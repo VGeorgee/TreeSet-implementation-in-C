@@ -40,5 +40,5 @@ void *treeset_first(TreeSet *this_set);
 void *treeset_last(TreeSet *this_set);
 void *treeset_higher(TreeSet *this_set, const void *element);//
 void *treeset_lower(TreeSet *this_set, const void *element);//
-void *treeset_pollfirst(TreeSet *this_set);//
-void *treeset_polllast(TreeSet *this_set);//
+void *treeset_poll_first(TreeSet *this_set);
+void *treeset_poll_last(TreeSet *this_set);
