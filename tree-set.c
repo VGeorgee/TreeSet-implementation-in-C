@@ -105,7 +105,7 @@ void treeset_clear(TreeSet *this_set){
         if(stack_of_nodes[i]->left_child != NULL){
             stack_of_nodes[n++] = stack_of_nodes[i]->left_child;
         }
-        if(stack_of_nodes[i]->right_child != NULL){
+        else if(stack_of_nodes[i]->right_child != NULL){
             stack_of_nodes[n++] = stack_of_nodes[i]->right_child;
         }
     }
@@ -117,4 +117,41 @@ void treeset_clear(TreeSet *this_set){
         stack_of_nodes[i]->right_child = NULL;
         free(stack_of_nodes[i]);
     }
+}
+
+
+int treeset_remove(TreeSet *this_set, const void *element){
+    puts("treeset_remove not yet implemented");
+    return 0;
+}
+
+
+void *treeset_first(TreeSet *this_set){
+
+    if(this_set->root == NULL){
+        return NULL;
+    }
+
+    NODE *pointer = this_set->root;
+
+    while(pointer->left_child == NULL){
+        pointer = pointer->left_child;
+    }
+
+    return pointer->value;
+}
+
+void *treeset_last(TreeSet *this_set){
+
+    if(this_set->root == NULL){
+        return NULL;
+    }
+
+    NODE *pointer = this_set->root;
+
+    while(pointer->right_child == NULL){
+        pointer = pointer->right_child;
+    }
+    
+    return pointer->value;
 }
