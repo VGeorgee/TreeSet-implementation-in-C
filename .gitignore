@@ -1,7 +1,0 @@
-*.cbp
-.vscode
-*.vs
-bin
-obj
-*.layout
-*.depend
