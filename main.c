@@ -11,13 +11,22 @@ int main()
      * tests for TreeSet
      * */
 
-    TreeSet *test = new_treeset(int_equals, int_compare);
+    TreeSet *test = new_treeset(int_equals, int_compare, int_print);
 
     for(int i = 0; i < 10; i++){
         treeset_add(test, new_int(i));
     }
 
     puts("adding elements done");
+
+    puts("preorder: ");
+    treeset_print_preorder(test);
+    
+    puts("\ninorder: ");
+    treeset_print_inorder(test);
+    
+    puts("\npostorder: ");
+    treeset_print_postorder(test);
 
     printf("biggest element should be 9, found: %d\n", *(int *)treeset_last(test));
     printf("smallest element should be 0, found: %d\n", *(int *)treeset_first(test));

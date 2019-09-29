@@ -1,11 +1,12 @@
 #include "tree-set.h"
 
 
-TreeSet *new_treeset(int (* equals)(const void *a, const void *b), int (* compare)(const void *a, const void *b)){
+TreeSet *new_treeset(int (* equals)(const void *a, const void *b), int (* compare)(const void *a, const void *b), void (* print)(const void *a)){
     TreeSet *tree = (TreeSet *) malloc(sizeof(TreeSet));
 
     tree->equals = equals;
     tree->compare = compare;
+    tree->print = print;
 
     tree->number_of_nodes = 0;
     tree->root = NULL;
@@ -117,10 +118,48 @@ void treeset_clear(TreeSet *this_set){
         stack_of_nodes[i]->right_child = NULL;
         free(stack_of_nodes[i]);
     }
+
+    this_set->root = NULL;
+    this_set->number_of_nodes = 0;
 }
 
 
 int treeset_remove(TreeSet *this_set, const void *element){
+    
+    if(this_set->root == NULL){
+        return 0;
+    }
+
+    NODE *search_pointer, *search_pointer_predecessor;
+    search_pointer = this_set->root;
+
+    while(!this_set->equals(search_pointer->value, element)){
+
+        search_pointer_predecessor = search_pointer;
+
+        search_pointer = this_set->compare(search_pointer->value, element) < 0 
+        ? search_pointer->right_child 
+        : search_pointer->left_child;
+        
+        if(search_pointer == NULL){
+            return 0;
+        }
+
+
+        /**
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * */
+    }
     puts("treeset_remove not yet implemented");
     return 0;
 }
@@ -209,4 +248,43 @@ void *treeset_poll_last(TreeSet *this_set){
     free(pointer);
 
     return data_from_first;
+}
+
+void treeset_print_preorder(TreeSet *this_set){
+    preorder_printer(this_set->root, this_set->print);
+}
+
+void preorder_printer(NODE *pointer, void (* print)(const void *a)){
+    if(pointer == NULL){
+        return;
+    }
+    print(pointer->value);
+    preorder_printer(pointer->left_child, print);
+    preorder_printer(pointer->right_child, print);
+}
+
+void treeset_print_inorder(TreeSet *this_set){
+    inorder_printer(this_set->root, this_set->print);
+}
+
+void inorder_printer(NODE *pointer, void (* print)(const void *a)){
+    if(pointer == NULL){
+        return;
+    }
+    inorder_printer(pointer->left_child, print);
+    print(pointer->value);
+    inorder_printer(pointer->right_child, print);
+}
+
+void treeset_print_postorder(TreeSet *this_set){
+    postorder_printer(this_set->root, this_set->print);
+}
+
+void postorder_printer(NODE *pointer, void (* print)(const void *a)){
+    if(pointer == NULL){
+        return;
+    }
+    postorder_printer(pointer->left_child, print);
+    postorder_printer(pointer->right_child, print);
+    print(pointer->value);
 }
