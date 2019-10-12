@@ -161,7 +161,7 @@ void treeset_clear(TreeSet *this_set){
         stack_of_nodes[i]->right_child = NULL;
         free(stack_of_nodes[i]);
     }
-
+    free(stack_of_nodes);
     this_set->root = NULL;
     this_set->number_of_nodes = 0;
 }
