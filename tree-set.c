@@ -87,42 +87,6 @@ int treeset_contains(TreeSet *this_set, const void *element){
     return 0;
 }
 
-int treeset_size(TreeSet *this_set){
-    return this_set->number_of_nodes;
-}
-
-int treeset_isempty(TreeSet *this_set){
-    return this_set->number_of_nodes == 0;
-}
-
-void treeset_clear(TreeSet *this_set){
-    NODE **stack_of_nodes = malloc(sizeof(NODE *) * this_set->number_of_nodes);
-    int i, n;
-
-    stack_of_nodes[0] = this_set->root;
-    n = 1;
-
-    for(i = 0; i < n; i++){
-        if(stack_of_nodes[i]->left_child != NULL){
-            stack_of_nodes[n++] = stack_of_nodes[i]->left_child;
-        }
-        else if(stack_of_nodes[i]->right_child != NULL){
-            stack_of_nodes[n++] = stack_of_nodes[i]->right_child;
-        }
-    }
-
-    for(i = n-1; i >= 0; i--){
-        //free(stack_of_nodes[i]->value); might cause error
-        stack_of_nodes[i]->value = NULL;
-        stack_of_nodes[i]->left_child = NULL;
-        stack_of_nodes[i]->right_child = NULL;
-        free(stack_of_nodes[i]);
-    }
-
-    this_set->root = NULL;
-    this_set->number_of_nodes = 0;
-}
-
 
 int treeset_remove(TreeSet *this_set, const void *element){
     
@@ -165,6 +129,59 @@ int treeset_remove(TreeSet *this_set, const void *element){
 }
 
 
+
+int treeset_size(TreeSet *this_set){
+    return this_set->number_of_nodes;
+}
+
+int treeset_isempty(TreeSet *this_set){
+    return this_set->number_of_nodes == 0;
+}
+
+void treeset_clear(TreeSet *this_set){
+    NODE **stack_of_nodes = malloc(sizeof(NODE *) * this_set->number_of_nodes);
+    int i, n;
+
+    stack_of_nodes[0] = this_set->root;
+    n = 1;
+
+    for(i = 0; i < n; i++){
+        if(stack_of_nodes[i]->left_child != NULL){
+            stack_of_nodes[n++] = stack_of_nodes[i]->left_child;
+        }
+        else if(stack_of_nodes[i]->right_child != NULL){
+            stack_of_nodes[n++] = stack_of_nodes[i]->right_child;
+        }
+    }
+
+    for(i = n-1; i >= 0; i--){
+        //free(stack_of_nodes[i]->value); might cause error
+        stack_of_nodes[i]->value = NULL;
+        stack_of_nodes[i]->left_child = NULL;
+        stack_of_nodes[i]->right_child = NULL;
+        free(stack_of_nodes[i]);
+    }
+
+    this_set->root = NULL;
+    this_set->number_of_nodes = 0;
+}
+
+void *treeset_ceiling(TreeSet *this_set, const void *element){
+    NODE *pointer = this_set->root;
+    while(pointer && this_set->compare(pointer->value, element) < 0){
+        pointer = pointer->right_child;
+    }
+    return pointer;
+}
+
+void *treeset_floor(TreeSet *this_set, const void *element){
+    NODE *pointer = this_set->root;
+    while(pointer && this_set->compare(pointer->value, element) < 0){
+        pointer = pointer->left_child;
+    }
+    return pointer;
+}
+
 void *treeset_first(TreeSet *this_set){
 
     if(this_set->root == NULL){
@@ -193,6 +210,17 @@ void *treeset_last(TreeSet *this_set){
     }
 
     return pointer->value;
+}
+
+
+void *treeset_higher(TreeSet *this_set, const void *element){
+    NODE *pointer = treeset_ceiling(this_set, element);
+    return pointer ? pointer->right_child : NULL;
+}
+
+void *treeset_lower(TreeSet *this_set, const void *element){
+    NODE *pointer = treeset_floor(this_set, element);
+    return pointer ? pointer->left_child : NULL;
 }
 
 void *treeset_poll_first(TreeSet *this_set){
