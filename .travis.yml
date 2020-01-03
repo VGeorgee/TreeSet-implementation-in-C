@@ -3,6 +3,7 @@ compiler: gcc
 
 script:
   - gcc -coverage main.c tree-set.c -o main
+  - ./main
   - gcov main.c
 
 after_success:
