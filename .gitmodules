@@ -1,0 +1,3 @@
+[submodule "standard-types-for-C"]
+	path = standard-types-for-C
+	url = https://github.com/VGeorgee/standard-types-for-C.git
