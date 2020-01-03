@@ -139,29 +139,29 @@ int treeset_isempty(TreeSet *this_set){
 }
 
 void treeset_clear(TreeSet *this_set){
-    NODE **stack_of_nodes = malloc(sizeof(NODE *) * this_set->number_of_nodes);
+    NODE **array_of_nodes = malloc(sizeof(NODE *) * this_set->number_of_nodes);
     int i, n;
 
-    stack_of_nodes[0] = this_set->root;
+    array_of_nodes[0] = this_set->root;
     n = 1;
 
     for(i = 0; i < n; i++){
-        if(stack_of_nodes[i]->left_child != NULL){
-            stack_of_nodes[n++] = stack_of_nodes[i]->left_child;
+        if(array_of_nodes[i]->left_child != NULL){
+            array_of_nodes[n++] = array_of_nodes[i]->left_child;
         }
-        else if(stack_of_nodes[i]->right_child != NULL){
-            stack_of_nodes[n++] = stack_of_nodes[i]->right_child;
+        else if(array_of_nodes[i]->right_child != NULL){
+            array_of_nodes[n++] = array_of_nodes[i]->right_child;
         }
     }
 
     for(i = n-1; i >= 0; i--){
-        //free(stack_of_nodes[i]->value); might cause error
-        stack_of_nodes[i]->value = NULL;
-        stack_of_nodes[i]->left_child = NULL;
-        stack_of_nodes[i]->right_child = NULL;
-        free(stack_of_nodes[i]);
+        //free(array_of_nodes[i]->value); might cause error
+        array_of_nodes[i]->value = NULL;
+        array_of_nodes[i]->left_child = NULL;
+        array_of_nodes[i]->right_child = NULL;
+        free(array_of_nodes[i]);
     }
-    free(stack_of_nodes);
+    free(array_of_nodes);
     this_set->root = NULL;
     this_set->number_of_nodes = 0;
 }
