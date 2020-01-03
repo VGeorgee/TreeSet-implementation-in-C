@@ -26,7 +26,7 @@ typedef struct treeset{
 
 } TreeSet;
 
-TreeSet *new_treeset(int (* equals)(const void *a, const void *b), int (* compare)(const void *a, const void *b), void (* print)(const void *a));
+TreeSet *new_treeset(int (* equals)(const void *a, const void *b), int (* compare)(const void *a, const void *b));
 NODE *new_node(const void *element);
 
 int treeset_add(TreeSet *this_set, const void *element);
@@ -43,7 +43,3 @@ void *treeset_higher(TreeSet *this_set, const void *element);//
 void *treeset_lower(TreeSet *this_set, const void *element);//
 void *treeset_poll_first(TreeSet *this_set);
 void *treeset_poll_last(TreeSet *this_set);
-
-void treeset_print_preorder(TreeSet *this_set);
-void treeset_print_inorder(TreeSet *this_set);
-void treeset_print_postorder(TreeSet *this_set);
