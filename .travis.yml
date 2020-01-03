@@ -4,7 +4,6 @@ compiler: gcc
 script:
   - gcc -coverage main.c tree-set.c -o main
   - gcov main.c
-  - ./main
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
